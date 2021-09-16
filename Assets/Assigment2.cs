@@ -4,39 +4,53 @@ using UnityEngine;
 
 public class Assigment2 : ProcessingLite.GP21
 {
-    // Start is called before the first frame update
-    void Start()
+    float xParabol1 = 0.5f;
+    float yParabol1 = 10;
+    int linesAmountParabol1 = 20;
+
+       void Start()
     {
         Background(255, 158, 0);
-
-
     }
 
     // Update is called once per frame
     void Update()
     {
-        float x = 1f;
-        float y = 10;
-        int numberOfLines = 20;
+        ParabolicCurves parabolicCurve1 = new ParabolicCurves(xParabol1, yParabol1, linesAmountParabol1);
+    }
+}
+
+public class ParabolicCurves : ProcessingLite.GP21
+{
+    float axis1;
+    float axis2;
+    float numberOfLines;
+
+    public ParabolicCurves(float axis1, float axis2, float numberOfLines)
+    {
+        this.axis1 = axis1;
+        this.axis2 = axis2;
+        this.numberOfLines = numberOfLines;
 
         for (int i = 0; i < numberOfLines; i++)
         {
             if (i % 3 == 0)
             {
-                Stroke(0);                
+                Stroke(0);
             }
             else
             {
                 Stroke(158);
             }
 
-            Line(0, y, x, 0);
+            StrokeWeight(0.5f);
+            Line(0, axis2, axis1, 0);
 
-            if (y > 0)
+            if (axis1 > 0)
             {
-                x += 1f;
-                y -= 0.5f;
-            }           
+                axis1 += 1f;
+                axis2 -= 0.5f;
+            }
         }
     }
 }
