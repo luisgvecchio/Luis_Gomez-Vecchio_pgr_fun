@@ -4,75 +4,172 @@ using UnityEngine;
 
 public class Assigment4 : ProcessingLite.GP21
 {
-    float posX1;
-    float posY1;
-
-    float posX2;
-    float posY2;
-
+    Vector2 positionPlayer1 = new Vector2();
+    Vector2 positionPlayer2 = new Vector2();
+    
     float diameter1 = 2;
     float diameter2 = 2;
 
-    float speed =5f;
-    float maxSpeed =30f;
-    float acceleration = 5f;
-    float deacceleration = -1f;
+    float initialSpeedP1 = 4f;
+    float changingSpeedP1;
+    float initialSpeedP2 = 10f;
+    float changingSpeedP2;
+    float maxSpeed = 35;
+    float acceleration = 8f;
+    float deceleration = 22f;
+
+    int velocityInputX;
+    int velocityInputY;
 
     void Start()
     {
-        posX1 = Width / 2;
-        posY1 = Height / 10;
+        positionPlayer1.x = Width / 2;
+        positionPlayer1.y = Height / 10;
 
-        posX2 = Width / 4;
-        posY2 = Height / 10;
-
-
+        positionPlayer2.x = Width / 4;
+        positionPlayer2.y = Height / 10;
     }
 
     void Update()
     {
         Background(50, 166, 240);
-        speed = speed + acceleration * Time.deltaTime;
 
-        if (speed > maxSpeed)
+        MaxSpeed();
+        InputBehaviour();
+        MovementPlayers();
+        HorizontalFrame();
+        VerticalFrame();
+
+        Stroke(255, 255, 0);
+        Fill(255, 255, 0);
+        Circle(positionPlayer1.x, positionPlayer1.y, diameter1); //1st character
+
+        Stroke(0, 255, 0);
+        Fill(0, 255, 0);
+        Circle(positionPlayer2.x, positionPlayer2.y, diameter2); //2nd character
+
+    }
+
+    private void VerticalFrame()
+    {
+        if (positionPlayer1.y < 0 + diameter1 / 2)
         {
-            speed = maxSpeed;
+            positionPlayer1.y = 0 + diameter1 / 2;
         }
-
-        posY1 = posY1 + Input.GetAxis("Vertical") * Time.deltaTime * speed;
-        posX1 = posX1 + Input.GetAxis("Horizontal") * Time.deltaTime * speed;
-
-        //if (Input.GetKeyUp(KeyCode.A) || Input.GetKeyUp(KeyCode.R))
-        //{
-        //    speed = speed + deacceleration * Time.deltaTime;
-        //    posY1 = posY1 + Input.GetAxis("Vertical") * Time.deltaTime * speed;
-        //    posX1 = posX1 + Input.GetAxis("Horizontal") * Time.deltaTime * speed;
-        //}
-
-        posX2 = posX2 + Input.GetAxis("Horizontal") * Time.deltaTime * acceleration;
-        posY2 = posY2 + Input.GetAxis("Vertical") * Time.deltaTime * acceleration;
-
-
-        Circle(posX1, posY1, diameter1); //1st character
-        Circle(posX2, posY2, diameter2); //2nd character
-
-
-        if (posX1> Width - diameter1 / 2)
+        if (positionPlayer1.y > Height - diameter1 / 2)
         {
-            posX1 = Width - diameter1;
+            positionPlayer1.y = Height - diameter1 / 2;
         }
-        if (posX1 < 0 + diameter1 / 2)
+        if (positionPlayer2.y < 0 + diameter2 / 2)
         {
-            posX1 = 0 + diameter1;
+            positionPlayer2.y = 0 + diameter2 / 2;
         }
-        if (posX2 > Width - diameter2 / 2)
+        if (positionPlayer2.y > Height - diameter2 / 2)
         {
-            posX2 = Width - diameter2;
+            positionPlayer2.y = Height - diameter2 / 2;
         }
-        if (posX2 < 0 + diameter1 / 2)
+    }
+    private void HorizontalFrame()
+    {
+        if (positionPlayer1.x > Width - diameter1 / 2)
         {
-            posX2 = 0 + diameter1;
+            positionPlayer1.x = 0 + diameter1 / 2;
         }
+        if (positionPlayer1.x < 0 + diameter1 / 2)
+        {
+            positionPlayer1.x = Width - diameter1 / 2;
+        }
+        if (positionPlayer2.x > Width - diameter2 / 2)
+        {
+            positionPlayer2.x = 0 + diameter2 / 2;
+        }
+        if (positionPlayer2.x < 0 + diameter1 / 2)
+        {
+            positionPlayer2.x = Width - diameter1 / 2;
+        }
+    }
+    private void InputBehaviour()
+    {
+        if (Input.GetAxisRaw("Horizontal") == 1)
+        {
+            velocityInputX = 1;
+            if (changingSpeedP1 < initialSpeedP1)
+            {
+                changingSpeedP1 = initialSpeedP1;
+            }
+            changingSpeedP1 = changingSpeedP1 + acceleration * Time.deltaTime;
+            changingSpeedP2 = initialSpeedP2;
+            if (Input.GetAxis("Vertical") == 0)
+            {
+                velocityInputY = 0;
+            }
+        }
+        else if (Input.GetAxisRaw("Horizontal") == -1)
+        {
+            velocityInputX = -1;
+            if (changingSpeedP1 < initialSpeedP1)
+            {
+                changingSpeedP1 = initialSpeedP1;
+            }
+            changingSpeedP1 = changingSpeedP1 + acceleration * Time.deltaTime;
+            changingSpeedP2 = initialSpeedP2;
+            if (Input.GetAxisRaw("Vertical") == 0)
+            {
+                velocityInputY = 0;
+            }
+        }
+        if (Input.GetAxisRaw("Vertical") == 1)
+        {
+            velocityInputY = 1;
+            if (changingSpeedP1 < initialSpeedP1)
+            {
+                changingSpeedP1 = initialSpeedP1;
+            }
+            changingSpeedP1 = changingSpeedP1 + acceleration * Time.deltaTime;
+            changingSpeedP2 = initialSpeedP2;
+            if (Input.GetAxisRaw("Horizontal") == 0)
+            {
+                velocityInputX = 0;
+            }
+        }
+        else if (Input.GetAxisRaw("Vertical") == -1)
+        {
+            velocityInputY = -1;
+            if (changingSpeedP1 < initialSpeedP1)
+            {
+                changingSpeedP1 = initialSpeedP1;
+            }
+            changingSpeedP1 = changingSpeedP1 + acceleration * Time.deltaTime;
+            changingSpeedP2 = initialSpeedP2;
+            if (Input.GetAxisRaw("Horizontal") == 0)
+            {
+                velocityInputX = 0;
+            }
+        }
+        if (Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && changingSpeedP1 > 0)
+        {
+            changingSpeedP1 = changingSpeedP1 - deceleration * Time.deltaTime;
 
+        }
+        if (Input.GetAxisRaw("Vertical") == 0 && Input.GetAxisRaw("Horizontal") == 0 && changingSpeedP2 > 0)
+        {
+            changingSpeedP2 = changingSpeedP2 - deceleration * Time.deltaTime;
+
+        }
+    }
+    private void MovementPlayers()
+    {
+        positionPlayer1.x = positionPlayer1.x + velocityInputX * Time.deltaTime * changingSpeedP1;// accelerating, yellow
+        positionPlayer1.y = positionPlayer1.y + velocityInputY * Time.deltaTime * changingSpeedP1;
+
+        positionPlayer2.x = positionPlayer2.x + velocityInputX * Time.deltaTime * changingSpeedP2;//constant speed, green
+        positionPlayer2.y = positionPlayer2.y + velocityInputY * Time.deltaTime * changingSpeedP2;
+    }
+    private void MaxSpeed()
+    {
+        if (changingSpeedP1 > maxSpeed)
+        {
+            changingSpeedP1 = maxSpeed;
+        }
     }
 }
