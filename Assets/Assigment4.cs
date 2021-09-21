@@ -6,7 +6,7 @@ public class Assigment4 : ProcessingLite.GP21
 {
     Vector2 positionPlayer1 = new Vector2();
     Vector2 positionPlayer2 = new Vector2();
-    
+
     float diameter1 = 2;
     float diameter2 = 2;
 
@@ -164,6 +164,11 @@ public class Assigment4 : ProcessingLite.GP21
 
         positionPlayer2.x = positionPlayer2.x + velocityInputX * Time.deltaTime * changingSpeedP2;//constant speed, green
         positionPlayer2.y = positionPlayer2.y + velocityInputY * Time.deltaTime * changingSpeedP2;
+
+        float horizontalNormalize = Input.GetAxis("Horizontal");
+        float verticalNormalize = Input.GetAxis("Vertical");
+        Vector2 normalizeDiagonal = new Vector2(horizontalNormalize, verticalNormalize);
+        normalizeDiagonal.Normalize();
     }
     private void MaxSpeed()
     {
@@ -172,4 +177,5 @@ public class Assigment4 : ProcessingLite.GP21
             changingSpeedP1 = maxSpeed;
         }
     }
+    
 }
