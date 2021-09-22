@@ -3,31 +3,46 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Ball : ProcessingLite.GP21
 {
-    //Our class variables
-    Vector2 position; //Ball position
-    Vector2 velocity; //Ball direction
+    Vector2 position;
+    Vector2 velocity;
+    float ballSize;
+    int red, blue, green;
 
-    //Ball Constructor, called when we type new Ball(x, y);
     public Ball(float x, float y)
     {
-        //Set our position when we create the code.
         position = new Vector2(x, y);
 
-        //Create the velocity vector and give it a random direction.
         velocity = new Vector2();
         velocity.x = Random.Range(0, 11) - 5;
         velocity.y = Random.Range(0, 11) - 5;
+        float randomBallSize = Random.Range(0, 1.5F);
+        int randomRed = Random.Range(0, 255);
+        int randomGreen = Random.Range(0, 255);
+        int randomBlue = Random.Range(0, 255);
+        red = randomRed;
+        green = randomGreen;
+        blue = randomBlue;
+        ballSize = randomBallSize;
     }
 
-    //Draw our ball
-    public void Draw(int red, int green, int blue, float ballSize)
+    public void BouncesEdgeOfScreen()
     {
+        if (position.x > Width || position.x < 0)
+        {
+            velocity.x *= -1;
+        }
+        if (position.y > Height || position.y < 0)
+        {
+            velocity.y *= -1;
+        }
+    }
+    public void Draw()
+    {
+
         Stroke(red, green, blue);
         Fill(red, green, blue);
         Circle(position.x, position.y, ballSize);
     }
-
-    //Update our ball
     public void UpdatePos()
     {
         position += velocity * Time.deltaTime;

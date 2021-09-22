@@ -4,10 +4,10 @@ using UnityEngine;
 public class Player : ProcessingLite.GP21
 {
     Vector2 positionPlayer1 = new Vector2(5, 5);
-    float diameter1 = 1;
+    float diameter1 = 0.6f;
     float initialSpeedP1 = 4f;
     float changingSpeedP1;
-    float maxSpeed = 35;
+    float maxSpeed = 10;
     float acceleration = 8f;
     float deceleration = 22f;
 
@@ -93,10 +93,28 @@ public class Player : ProcessingLite.GP21
     }
     public void DrawPlayer()
     {
-        Stroke(255, 255, 0);
-        Fill(255, 255, 0);
+        Stroke(255);
+        Fill(0);
         Circle(positionPlayer1.x, positionPlayer1.y, diameter1);
     }
-    
-    
-}
+    public void Frame()
+    {
+        if (positionPlayer1.y < 0 + diameter1 / 2)
+        {
+            positionPlayer1.y = 0 + diameter1 / 2;
+        }
+        if (positionPlayer1.y > Height - diameter1 / 2)
+        {
+            positionPlayer1.y = Height - diameter1 / 2;
+        }
+        if (positionPlayer1.x < 0 + diameter1 / 2)
+        {
+            positionPlayer1.x = 0 + diameter1 / 2;
+        }
+        if (positionPlayer1.x > Width - diameter1 / 2)
+        {
+            positionPlayer1.x = Width - diameter1 / 2;
+        }
+    }
+
+    }
