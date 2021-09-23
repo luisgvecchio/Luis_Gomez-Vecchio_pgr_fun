@@ -3,8 +3,8 @@ using System.Collections.Generic;
 using UnityEngine;
 public class Player : ProcessingLite.GP21
 {
-    Vector2 positionPlayer1 = new Vector2(5, 5);
-    float diameter1 = 0.6f;
+    public Vector2 positionPlayer1 = new Vector2(1, 5);
+    public float diameter1 = 0.6f;
     float initialSpeedP1 = 4f;
     float changingSpeedP1;
     float maxSpeed = 10;
@@ -76,13 +76,12 @@ public class Player : ProcessingLite.GP21
     }
     public void MovementPlayers()
     {
-        positionPlayer1.x = positionPlayer1.x + velocityInputX * Time.deltaTime * changingSpeedP1;// accelerating, yellow
-        positionPlayer1.y = positionPlayer1.y + velocityInputY * Time.deltaTime * changingSpeedP1;
-
-        float horizontalNormalize = Input.GetAxis("Horizontal");
-        float verticalNormalize = Input.GetAxis("Vertical");
-        Vector2 normalizeDiagonal = new Vector2(horizontalNormalize, verticalNormalize);
+        Vector2 normalizeDiagonal = new Vector2(velocityInputX, velocityInputY);
         normalizeDiagonal.Normalize();
+
+        positionPlayer1.x = positionPlayer1.x + normalizeDiagonal.x * Time.deltaTime * changingSpeedP1;// accelerating, yellow
+        positionPlayer1.y = positionPlayer1.y + normalizeDiagonal.y * Time.deltaTime * changingSpeedP1;
+
     }
     public void MaxSpeed()
     {
