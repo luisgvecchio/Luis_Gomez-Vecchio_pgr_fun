@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Assigment3 : ProcessingLite.GP21
+public class Assignment3 : ProcessingLite.GP21
 {
     Vector2 circlePosition = new Vector2();
     Vector2 circleDirection = new Vector2();

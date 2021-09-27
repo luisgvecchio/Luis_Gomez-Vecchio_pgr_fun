@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public class Assigment5 : ProcessingLite.GP21
+public class Assignment5 : ProcessingLite.GP21
 {
     int numberOfBalls = 10; //Move to ball manager
     Ball[] balls;           //Move to ball manager
@@ -34,7 +34,7 @@ public class Assigment5 : ProcessingLite.GP21
         player1.Frame();
         player1.MaxSpeed();
 
-        for (int i = 0; i < balls.Length; i++)      //Move to ball manager, Make it a Methid
+        for (int i = 0; i < balls.Length; i++)      //Move to ball manager, Make it a Method
         {
             balls[i].UpdatePos();
             balls[i].BouncesEdgeOfScreen();
@@ -74,7 +74,7 @@ public class Assigment5 : ProcessingLite.GP21
             Stroke(255);
             StrokeWeight(2);
             Line(0, 0, Width, Height);
-            Line(Width, Height, 0, 0);
+            Line(0, Height, Width, 0);
         }
 
     }

@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Assigment2 : ProcessingLite.GP21
+public class Assignment2 : ProcessingLite.GP21
 {
     float xParabol1 = 0.5f;
     float yParabol1 = 10;

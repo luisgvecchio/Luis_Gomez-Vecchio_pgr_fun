@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Assigment4 : ProcessingLite.GP21
+public class Assignment4 : ProcessingLite.GP21
 {
     Vector2 positionPlayer1 = new Vector2();
     Vector2 positionPlayer2 = new Vector2();
